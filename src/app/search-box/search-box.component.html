@@ -4,10 +4,6 @@
    </div>
  <ul>
    <li *ngFor="let result of results" >
-    <!-- <img src={{result.Poster}} alt="" width="50" height="50">-->
-     <p class="artist-name">{{result.Title}}</p>
-     <iframe class="embed-responsive-item" [src]='safeURL'
-      	webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
- <!--<span class="tags"></span>-->
+    <a [href]="result.safeURL">{{result.Title}}</a>
  </ul>
  </section>

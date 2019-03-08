@@ -3,7 +3,8 @@ import { SearchService } from '../search/search.service';
 import { FormControl } from '@angular/forms';
 import { DomSanitizer , SafeResourceUrl } from '@angular/platform-browser';
 
-import { debounceTime } from 'rxjs/operators/';
+import { debounceTime, map } from 'rxjs/operators/';
+import { Result } from '../model/result';
 
 @Component({
   selector: 'app-search-box',
@@ -12,9 +13,9 @@ import { debounceTime } from 'rxjs/operators/';
 })
 export class SearchBoxComponent implements OnInit {
 
-  results: any[] = [];
+  results: Result[] = [];
   queryField: FormControl = new FormControl();
-  public safeURL : SafeResourceUrl;
+ // public safeURL : SafeResourceUrl;
 
   constructor(private _searchService: SearchService , private _sanitizer : DomSanitizer) { }
 
@@ -22,9 +23,12 @@ export class SearchBoxComponent implements OnInit {
     this.queryField.valueChanges.pipe(
       debounceTime(1000))
       .subscribe(queryField => this._searchService.search(queryField)
-        .subscribe(response => this.results = response.json()));
+                              .subscribe(response => {
+                                this.results = response.json() as Result[]
+                               this.results.forEach(result => result.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/watch?v=" + result.videoId));
+                              }))
 
-        this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/WovwuOFBUuY');
+   // this.results.forEach(result => result.setSafeURL);
 
   }
   
