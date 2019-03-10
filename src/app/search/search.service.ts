@@ -18,7 +18,7 @@ export class SearchService {
   search(queryString: string) {
     queryString = queryString.replace(' ', '+');
     console.log(queryString)
-    let _URL = 'http://localhost:8080/search/' + queryString;
+    let _URL = 'http://youtube-app-292.us-east-1.elasticbeanstalk.com/search/' + queryString;
 
     return this._http.get(_URL);
   }
