@@ -16,7 +16,7 @@ export class SearchService {
   constructor(private _http: Http) { }
 
   search(queryString: string) {
-    queryString = queryString.replace(' ', '+');
+    queryString = queryString.split(' ').join('+');
     console.log(queryString)
     let _URL = 'https://morning-hamlet-87493.herokuapp.com/search/' + queryString;
 
