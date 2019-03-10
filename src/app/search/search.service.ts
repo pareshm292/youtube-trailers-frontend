@@ -18,7 +18,7 @@ export class SearchService {
   search(queryString: string) {
     queryString = queryString.replace(' ', '+');
     console.log(queryString)
-    let _URL = 'http://youtube-app-292.us-east-1.elasticbeanstalk.com/search/' + queryString;
+    let _URL = 'https://morning-hamlet-87493.herokuapp.com/search/' + queryString;
 
     return this._http.get(_URL);
   }
